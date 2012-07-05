@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter::Summarizer;
 {
-  $Exception::Reporter::Summarizer::VERSION = '0.001';
+  $Exception::Reporter::Summarizer::VERSION = '0.002';
 }
 # ABSTRACT: a thing that summarizes dumpables for reporting
 
@@ -38,7 +38,7 @@ Exception::Reporter::Summarizer - a thing that summarizes dumpables for reportin
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 OVERVIEW
 

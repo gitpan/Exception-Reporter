@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter;
 {
-  $Exception::Reporter::VERSION = '0.001';
+  $Exception::Reporter::VERSION = '0.002';
 }
 # ABSTRACT: a generic exception-reporting object
 
@@ -14,9 +14,10 @@ sub new {
   my ($class, $arg) = @_;
 
   my $guts = {
-    summarizers => $arg->{summarizers},
-    senders     => $arg->{senders},
-    always_dump => $arg->{always_dump},
+    summarizers  => $arg->{summarizers},
+    senders      => $arg->{senders},
+    always_dump  => $arg->{always_dump},
+    caller_level => $arg->{caller_level} || 0,
   };
 
   if ($guts->{always_dump}) {
@@ -49,7 +50,7 @@ sub report_exception {
 
   my $guid = _guid_string;
 
-  my @caller = caller;
+  my @caller = caller( $self->{caller_level} );
   $arg->{reporter} ||= $caller[0];
 
   my @summaries;
@@ -103,7 +104,7 @@ Exception::Reporter - a generic exception-reporting object
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 SYNOPSIS
 
@@ -168,9 +169,10 @@ somebody who cares.
 
 This returns a new reporter.  Valid arguments are:
 
-  summarizers - an arrayref of summarizer objects; required
-  senders     - an arrayref of sender objects; required
-  always_dump - a hashref of coderefs used to generate extra dumpables
+  summarizers  - an arrayref of summarizer objects; required
+  senders      - an arrayref of sender objects; required
+  always_dump  - a hashref of coderefs used to generate extra dumpables
+  caller_level - if given, the reporter will look n frames up; see below
 
 The C<always_dump> hashref bears a bit more explanation.  When
 C<L</report_exception>> is called, each entry in C<always_dump> will be
@@ -182,6 +184,12 @@ block, which means that anything that might have been changed C<local>-ly in
 your C<try> block will I<not> be the same when evaluated as part of the
 C<always_dump> code.  This might not matter often, but keep it in mind when
 setting up your reporter.
+
+In real code, you're likely to create one Exception::Reporter object and make
+it globally accessible through some method.  That method adds a call frame, and
+Exception::Reporter sometimes looks at C<caller> to get a default.  If you want
+to skip those intermedite call frames, pass C<caller_level>.  It will be used
+as the number of frames up the stack to look.  It defaults to zero.
 
 =head2 report_exception
 

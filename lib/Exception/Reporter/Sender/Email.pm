@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter::Sender::Email;
 {
-  $Exception::Reporter::Sender::Email::VERSION = '0.001';
+  $Exception::Reporter::Sender::Email::VERSION = '0.002';
 }
 # ABSTRACT: an report sender that sends detailed dumps via email
 use parent 'Exception::Reporter::Sender';
@@ -159,7 +159,7 @@ sub _build_email {
 
   my ($package, $filename, $line) = @{ $internal_arg->{caller} };
 
-  my $reporter = $arg->{reporter} || $package;
+  my $reporter = $arg->{reporter};
 
   my $email = Email::MIME->create(
     attributes => { content_type => 'multipart/mixed' },
@@ -168,15 +168,17 @@ sub _build_email {
       From => $self->from_header,
       To   => $self->to_header,
       Subject      => String::Truncate::elide("$reporter: $ident", 65),
-      'X-Mailer'   => __PACKAGE__,
+      'X-Mailer'   => (ref $self),
       'Message-Id' => Email::MessageID->new(user => $internal_arg->{guid})
                                       ->in_brackets,
       'In-Reply-To'=> Email::MessageID->new(
                         user => Digest::MD5::md5_hex($digest_ident),
                         host => $reporter,
                       )->in_brackets,
-      'X-Exception-Reporter-Reporter' => "$filename line $line ($package)",
-      'X-Exception-Reporter-Handled'  => ($arg->{handled} ? 1 : 0),
+      'X-Exception-Reporter-Reporter' => $arg->{reporter},
+      'X-Exception-Reporter-Caller'   => "$filename line $line ($package)",
+
+      ($arg->{handled} ? ('X-Exception-Reporter-Handled' => 1) : ()),
     ],
   );
 
@@ -194,7 +196,7 @@ Exception::Reporter::Sender::Email - an report sender that sends detailed dumps 
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 SYNOPSIS
 

@@ -33,7 +33,16 @@ my $reporter = Exception::Reporter->new({
     Exception::Reporter::Summarizer::ExceptionClass->new,
     Exception::Reporter::Summarizer::Fallback->new,
   ],
+  caller_level => 1,
 });
+
+{
+  package ER;
+  sub report_exception {
+    my $class = shift;
+    $reporter->report_exception(@_);
+  }
+}
 
 {
   package X; sub x { Z->z }
@@ -65,19 +74,22 @@ my $file_1 = Exception::Reporter::Dumpable::File->new('misc/ls.long', {
 });
 my $file_2 = Exception::Reporter::Dumpable::File->new('does-not-exist.txt');
 
-my $guid = $reporter->report_exception(
-  [
-    [ ecb    => $exception    ],
-    [ string => "Your fault." ],
-    [ email  => $email        ],
-    [ f1     => $file_1       ],
-    [ f2     => $file_2       ],
-  ],
-  {
-    handled  => 1,
-    reporter => 'Xyz',
-  },
-);
+my $guid = do {
+  package Failsy;
+  ER->report_exception(
+    [
+      [ ecb    => $exception    ],
+      [ string => "Your fault." ],
+      [ email  => $email        ],
+      [ f1     => $file_1       ],
+      [ f2     => $file_2       ],
+    ],
+    {
+      handled  => 1,
+      reporter => 'Xyz',
+    },
+  );
+};
 
 {
   my @deliveries = Email::Sender::Simple->default_transport->deliveries;
@@ -91,7 +103,8 @@ my $guid = $reporter->report_exception(
 
   like($mime->header('Message-Id'), qr/\A<\Q$guid\E\@/, "guid in msg-id");
 
-  is(@parts, 7, "got seven parts"); # prelude + 5 dumpables
+  # prelude + 5 dumpables in report call + 1 always_dump entry
+  is(@parts, 7, "got seven parts");
 
   my @names = map {;
     parse_content_type($_->header('Content-Type'))->{attributes}{name}
@@ -104,6 +117,18 @@ my $guid = $reporter->report_exception(
   is($mime->header('Subject'), "Xyz: Everything sucks.", "right header");
   # print $mime->debug_structure;
   # print $mime->as_string;
+
+  is(
+    $mime->header('X-Exception-Reporter-Reporter'),
+    'Xyz',
+    "our Reporter header is there",
+  );
+
+  like(
+    $mime->header('X-Exception-Reporter-Caller'),
+    qr/Failsy/,
+    "we used caller_level to get the right default caller",
+  );
 }
 
 done_testing;
