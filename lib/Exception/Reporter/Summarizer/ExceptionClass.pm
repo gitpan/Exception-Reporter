@@ -2,14 +2,14 @@ use strict;
 use warnings;
 package Exception::Reporter::Summarizer::ExceptionClass;
 {
-  $Exception::Reporter::Summarizer::ExceptionClass::VERSION = '0.002';
+  $Exception::Reporter::Summarizer::ExceptionClass::VERSION = '0.003';
 }
 use parent 'Exception::Reporter::Summarizer';
 
 
 use Exception::Class 1.30; # NoContextInfo
 use Try::Tiny;
-use YAML::XS ();
+use YAML ();
 
 sub can_summarize {
   my ($self, $entry) = @_;
@@ -52,7 +52,7 @@ sub summarize {
         filename => "exception-context.txt",
         mimetype => 'text/plain',
         ident    => "context info",
-        body     => YAML::XS::Dump({
+        body     => YAML::Dump({
           time => $exception->time,
           pid  => $exception->pid,
           uid  => $exception->uid,
@@ -74,7 +74,7 @@ sub summarize {
       filename => "exception-context.txt",
       mimetype => 'text/plain',
       ident    => "context info",
-      body     => YAML::XS::Dump($hash),
+      body     => YAML::Dump($hash),
     };
   }
 
@@ -92,7 +92,7 @@ Exception::Reporter::Summarizer::ExceptionClass
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 OVERVIEW
 

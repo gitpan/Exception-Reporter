@@ -37,12 +37,12 @@ my %WriteMakefileArgs = (
     "File::Basename" => 0,
     "String::Truncate" => 0,
     "Try::Tiny" => 0,
-    "YAML::XS" => 0,
+    "YAML" => 0,
     "parent" => 0,
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.002",
+  "VERSION" => "0.003",
   "test" => {
     "TESTS" => "t/*.t"
   }

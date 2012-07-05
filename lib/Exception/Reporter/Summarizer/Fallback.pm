@@ -2,12 +2,12 @@ use strict;
 use warnings;
 package Exception::Reporter::Summarizer::Fallback;
 {
-  $Exception::Reporter::Summarizer::Fallback::VERSION = '0.002';
+  $Exception::Reporter::Summarizer::Fallback::VERSION = '0.003';
 }
 use parent 'Exception::Reporter::Summarizer';
 
 
-use YAML::XS ();
+use YAML ();
 use Try::Tiny;
 
 sub can_summarize { 1 }
@@ -19,7 +19,7 @@ sub summarize {
   my $fn_base = $self->sanitize_filename($name);
 
   return try {
-    my $body  = ref $value     ? YAML::XS::Dump($value)
+    my $body  = ref $value     ? YAML::Dump($value)
               : defined $value ? $value
               :                  "(undef)";;
 
@@ -65,7 +65,7 @@ Exception::Reporter::Summarizer::Fallback
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 OVERVIEW
 

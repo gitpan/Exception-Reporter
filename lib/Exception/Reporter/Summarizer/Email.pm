@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter::Summarizer::Email;
 {
-  $Exception::Reporter::Summarizer::Email::VERSION = '0.002';
+  $Exception::Reporter::Summarizer::Email::VERSION = '0.003';
 }
 use parent 'Exception::Reporter::Summarizer';
 
@@ -40,7 +40,7 @@ Exception::Reporter::Summarizer::Email
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 OVERVIEW
 

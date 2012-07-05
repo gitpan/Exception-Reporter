@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter::Sender;
 {
-  $Exception::Reporter::Sender::VERSION = '0.002';
+  $Exception::Reporter::Sender::VERSION = '0.003';
 }
 # ABSTRACT: a thing that sends exception reports
 
@@ -26,7 +26,7 @@ Exception::Reporter::Sender - a thing that sends exception reports
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 OVERVIEW
 
