@@ -2,14 +2,13 @@ use strict;
 use warnings;
 package Exception::Reporter::Summarizer::ExceptionClass;
 {
-  $Exception::Reporter::Summarizer::ExceptionClass::VERSION = '0.003';
+  $Exception::Reporter::Summarizer::ExceptionClass::VERSION = '0.004';
 }
 use parent 'Exception::Reporter::Summarizer';
 
 
 use Exception::Class 1.30; # NoContextInfo
 use Try::Tiny;
-use YAML ();
 
 sub can_summarize {
   my ($self, $entry) = @_;
@@ -17,7 +16,7 @@ sub can_summarize {
 }
 
 sub summarize {
-  my ($self, $entry) = @_;
+  my ($self, $entry, $internal_arg) = @_;
   my ($name, $exception, $arg) = @$entry;
 
   my $fn_base = $self->sanitize_filename($name);
@@ -39,6 +38,15 @@ sub summarize {
   });
 
   if (! $exception->NoContextInfo) {
+    my $context = $self->dump({
+      time => $exception->time,
+      pid  => $exception->pid,
+      uid  => $exception->uid,
+      euid => $exception->euid,
+      gid  => $exception->gid,
+      egid => $exception->egid,
+    }, { basename => 'exception-context' });
+
     push @summaries, (
       {
         filename => "exception-stack.txt",
@@ -49,17 +57,9 @@ sub summarize {
         }),
       },
       {
-        filename => "exception-context.txt",
-        mimetype => 'text/plain',
-        ident    => "context info",
-        body     => YAML::Dump({
-          time => $exception->time,
-          pid  => $exception->pid,
-          uid  => $exception->uid,
-          euid => $exception->euid,
-          gid  => $exception->gid,
-          egid => $exception->egid,
-        }),
+        filename => 'exception-context.txt',
+        %$context,
+        ident    => 'exception context info',
       },
     );
   }
@@ -70,11 +70,11 @@ sub summarize {
       $hash->{ $field } = $exception->$field;
     }
 
+    my $fields = $self->dump($hash, { basename => 'exception-fields' });
     push @summaries, {
-      filename => "exception-context.txt",
-      mimetype => 'text/plain',
-      ident    => "context info",
-      body     => YAML::Dump($hash),
+      filename => "exception-fields.txt",
+      %$fields,
+      ident    => "exception fields",
     };
   }
 
@@ -84,6 +84,7 @@ sub summarize {
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -92,7 +93,7 @@ Exception::Reporter::Summarizer::ExceptionClass
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 OVERVIEW
 
@@ -100,9 +101,9 @@ This summarizer handles only L<Exception::Class> objects.  A dumped exception
 will result in between one and four summaries:
 
   * a text summary of the exceptions full message
-  * if available, a YAML dump of the exception's pid, time, uid, etc.
+  * if available, a dump of the exception's pid, time, uid, etc.
   * if available, the stringification of the exception's stack trace
-  * if any fields are defined, a YAML dump of the exception's fields
+  * if any fields are defined, a dump of the exception's fields
 
 =head1 AUTHOR
 
@@ -116,4 +117,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

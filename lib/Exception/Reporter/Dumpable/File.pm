@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter::Dumpable::File;
 {
-  $Exception::Reporter::Dumpable::File::VERSION = '0.003';
+  $Exception::Reporter::Dumpable::File::VERSION = '0.004';
 }
 # ABSTRACT: a dumpable object for a file on disk
 
@@ -77,6 +77,7 @@ sub _mimetype_from_filename {
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -85,7 +86,7 @@ Exception::Reporter::Dumpable::File - a dumpable object for a file on disk
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 SYNOPSIS
 
@@ -141,4 +142,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

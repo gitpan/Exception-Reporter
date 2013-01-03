@@ -2,61 +2,34 @@ use strict;
 use warnings;
 package Exception::Reporter::Summarizer::Fallback;
 {
-  $Exception::Reporter::Summarizer::Fallback::VERSION = '0.003';
+  $Exception::Reporter::Summarizer::Fallback::VERSION = '0.004';
 }
 use parent 'Exception::Reporter::Summarizer';
 
 
-use YAML ();
 use Try::Tiny;
 
 sub can_summarize { 1 }
 
 sub summarize {
-  my ($self, $entry) = @_;
+  my ($self, $entry, $internal_arg) = @_;
   my ($name, $value, $arg) = @$entry;
 
   my $fn_base = $self->sanitize_filename($name);
 
-  return try {
-    my $body  = ref $value     ? YAML::Dump($value)
-              : defined $value ? $value
-              :                  "(undef)";;
+  my $dump = $self->dump($value, { basename => $fn_base });
 
-    my $ident = $body;
-    $ident =~ s/\A---\s*// if ref $value; # strip the document marker
-
-    # If we've got a Perl-like exception string, make it more generic by
-    # stripping the throw location.
-    $ident =~ s/\s+(?:at .+?)? ?line\s\d+\.?$//;
-
-    return {
-      filename => "$fn_base.yaml",
-      mimetype => 'text/plain',
-      ident    => $ident,
-      body     => $body,
-    };
-  } catch {
-    return(
-      {
-        filename => "$fn_base-error.txt",
-        mimetype => 'text/plain',
-        ident    => "$name dumpable dumping error",
-        body     => "could not summarize $name value: $_\n",
-      },
-      {
-        filename => "$fn_base-raw.txt",
-        mimetype => 'text/plain',
-        ident    => "$name dumpable stringification",
-        body     => do { no warnings 'uninitialized'; "$name" },
-      },
-    );
+  return {
+    filename => "$fn_base.txt",
+    ident    => "dump of $name",
+    %$dump,
   };
 }
 
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -65,7 +38,7 @@ Exception::Reporter::Summarizer::Fallback
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 OVERVIEW
 
@@ -89,4 +62,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

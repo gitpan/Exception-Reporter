@@ -9,6 +9,7 @@ use Test::More;
 
 use Exception::Reporter;
 use Exception::Reporter::Dumpable::File;
+use Exception::Reporter::Dumper::YAML;
 use Exception::Reporter::Sender::Email;
 use Exception::Reporter::Summarizer::Email;
 use Exception::Reporter::Summarizer::File;
@@ -21,6 +22,7 @@ use Email::MIME::ContentType;
 
 my $reporter = Exception::Reporter->new({
   always_dump => { env => sub { \%ENV } },
+  dumper      => Exception::Reporter::Dumper::YAML->new,
   senders     => [
     Exception::Reporter::Sender::Email->new({
       from => 'root',
@@ -116,7 +118,7 @@ my $guid = do {
 
   is($mime->header('Subject'), "Xyz: Everything sucks.", "right header");
   # print $mime->debug_structure;
-  # print $mime->as_string;
+  print $mime->as_string;
 
   is(
     $mime->header('X-Exception-Reporter-Reporter'),

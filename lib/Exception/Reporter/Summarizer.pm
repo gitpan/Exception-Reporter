@@ -2,11 +2,12 @@ use strict;
 use warnings;
 package Exception::Reporter::Summarizer;
 {
-  $Exception::Reporter::Summarizer::VERSION = '0.003';
+  $Exception::Reporter::Summarizer::VERSION = '0.004';
 }
 # ABSTRACT: a thing that summarizes dumpables for reporting
 
 use Carp ();
+use Scalar::Util ();
 
 
 sub new {
@@ -27,9 +28,28 @@ sub sanitize_filename {
   return $filename;
 }
 
+sub register_reporter {
+  my ($self, $reporter) = @_;
+
+  Carp::confess("register_reporter called, but a reporter was already registered")
+    if $self->{reporter};
+
+  $self->{reporter} = $reporter;
+  Scalar::Util::weaken($self->{reporter});
+  return;
+}
+
+sub reporter { $_[0]->{reporter} }
+
+sub dump {
+  my ($self, $value, $arg) = @_;
+  $self->reporter->dumper->dump($value, $arg);
+}
+
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -38,7 +58,7 @@ Exception::Reporter::Summarizer - a thing that summarizes dumpables for reportin
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 OVERVIEW
 
@@ -61,4 +81,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

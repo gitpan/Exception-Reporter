@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter::Sender::Email;
 {
-  $Exception::Reporter::Sender::Email::VERSION = '0.003';
+  $Exception::Reporter::Sender::Email::VERSION = '0.004';
 }
 # ABSTRACT: an report sender that sends detailed dumps via email
 use parent 'Exception::Reporter::Sender';
@@ -122,6 +122,7 @@ sub _build_email {
       );
 
       $these_parts[-1]->header_set(Date=>);
+      $these_parts[-1]->header_set('MIME-Version'=>);
     }
 
     if (@these_parts == 1) {
@@ -132,6 +133,7 @@ sub _build_email {
         parts       => \@these_parts,
       );
       $parts[-1]->header_set(Date=>);
+      $parts[-1]->header_set('MIME-Version'=>);
     }
 
     $parts[-1]->name_set($summary->[0]);
@@ -150,12 +152,15 @@ sub _build_email {
       },
     );
     $parts[-1]->header_set(Date=>);
+    $parts[-1]->header_set('MIME-Version'=>);
   }
 
   my $ident = $summaries->[0][1][0]{ident} && $summaries->[0][1][0]{ident}
            || "(unknown exception)";;
 
-  (my $digest_ident = $ident) =~ s/\(.+//g;
+  my $digest_ident = $ident;
+  $ident =~ s/\s+(?:at .+?)? ?line\s\d+\.?$//;
+  $ident =~ s/\(.+//g;
 
   my ($package, $filename, $line) = @{ $internal_arg->{caller} };
 
@@ -188,6 +193,7 @@ sub _build_email {
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -196,7 +202,7 @@ Exception::Reporter::Sender::Email - an report sender that sends detailed dumps 
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 SYNOPSIS
 
@@ -281,4 +287,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

@@ -1,11 +1,9 @@
 use strict;
 use warnings;
-package Exception::Reporter::Sender;
+package Exception::Reporter::Dumper;
 {
-  $Exception::Reporter::Sender::VERSION = '0.004';
+  $Exception::Reporter::Dumper::VERSION = '0.004';
 }
-# ABSTRACT: a thing that sends exception reports
-
 
 sub new {
   my $class = shift;
@@ -13,6 +11,11 @@ sub new {
   Carp::confess("$class constructor does not take any parameters") if @_;
 
   return bless {}, $class;
+}
+
+sub dump {
+  my $class = ref $_[0] || $_[0];
+  Carp::confess("$class does not implement required Exception::Reporter::Dumper method 'dump'");
 }
 
 1;
@@ -23,17 +26,11 @@ __END__
 
 =head1 NAME
 
-Exception::Reporter::Sender - a thing that sends exception reports
+Exception::Reporter::Dumper
 
 =head1 VERSION
 
 version 0.004
-
-=head1 OVERVIEW
-
-This class exists almost entirely to allow C<isa>-checking.  It provides a
-C<new> method that returns a blessed, empty object.  Passing it any parameters
-will cause an exception to be thrown.
 
 =head1 AUTHOR
 

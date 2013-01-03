@@ -8,6 +8,8 @@ README
 dist.ini
 lib/Exception/Reporter.pm
 lib/Exception/Reporter/Dumpable/File.pm
+lib/Exception/Reporter/Dumper.pm
+lib/Exception/Reporter/Dumper/YAML.pm
 lib/Exception/Reporter/Sender.pm
 lib/Exception/Reporter/Sender/Email.pm
 lib/Exception/Reporter/Summarizer.pm

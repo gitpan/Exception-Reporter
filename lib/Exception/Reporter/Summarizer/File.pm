@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter::Summarizer::File;
 {
-  $Exception::Reporter::Summarizer::File::VERSION = '0.003';
+  $Exception::Reporter::Summarizer::File::VERSION = '0.004';
 }
 use parent 'Exception::Reporter::Summarizer';
 
@@ -36,6 +36,7 @@ sub summarize {
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -44,7 +45,7 @@ Exception::Reporter::Summarizer::File
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 OVERVIEW
 
@@ -63,4 +64,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

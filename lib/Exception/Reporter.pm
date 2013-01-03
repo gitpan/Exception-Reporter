@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter;
 {
-  $Exception::Reporter::VERSION = '0.003';
+  $Exception::Reporter::VERSION = '0.004';
 }
 # ABSTRACT: a generic exception-reporting object
 
@@ -13,34 +13,49 @@ use Data::GUID guid_string => { -as => '_guid_string' };
 sub new {
   my ($class, $arg) = @_;
 
-  my $guts = {
+  my $self = {
     summarizers  => $arg->{summarizers},
     senders      => $arg->{senders},
+    dumper       => $arg->{dumper},
     always_dump  => $arg->{always_dump},
     caller_level => $arg->{caller_level} || 0,
   };
 
-  if ($guts->{always_dump}) {
-    for my $key (keys %{ $guts->{always_dump} }) {
+  if ($self->{always_dump}) {
+    for my $key (keys %{ $self->{always_dump} }) {
       Carp::confess("non-coderef entry in always_dump: $key")
-        unless ref($guts->{always_dump}{$key}) eq 'CODE';
+        unless ref($self->{always_dump}{$key}) eq 'CODE';
     }
   }
+
+  $self->{dumper} ||= do {
+    require Exception::Reporter::Dumper::YAML;
+    Exception::Reporter::Dumper::YAML->new;
+  };
+
+  Carp::confess("entry in dumper is not an Exception::Reporter::Dumper")
+    unless $self->{dumper}->isa('Exception::Reporter::Dumper');
 
   for my $test (qw(Summarizer Sender)) {
     my $class = "Exception::Reporter::$test";
     my $key   = "\L${test}s";
 
-    Carp::confess("no $key given!") unless $arg->{$key} and @{ $arg->{$key} };
-    Carp::confess("entry in $key is not a $class")
+    Carp::confess("no $key given") unless $arg->{$key} and @{ $arg->{$key} };
+    Carp::confess("entry in $key is not an $class")
       if grep { ! $_->isa($class) } @{ $arg->{$key} };
   }
 
-  bless $guts => $class;
+  bless $self => $class;
+
+  $_->register_reporter($self) for $self->_summarizers;
+
+  return $self;
 }
 
 sub _summarizers { return @{ $_[0]->{summarizers} }; }
 sub _senders     { return @{ $_[0]->{senders} }; }
+
+sub dumper { return $_[0]->{dumper} }
 
 
 sub report_exception {
@@ -96,6 +111,7 @@ sub report_exception {
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -104,7 +120,7 @@ Exception::Reporter - a generic exception-reporting object
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 SYNOPSIS
 
@@ -171,6 +187,7 @@ This returns a new reporter.  Valid arguments are:
 
   summarizers  - an arrayref of summarizer objects; required
   senders      - an arrayref of sender objects; required
+  dumper       - a Exception::Reporter::Dumper used for dumping data
   always_dump  - a hashref of coderefs used to generate extra dumpables
   caller_level - if given, the reporter will look n frames up; see below
 
@@ -254,4 +271,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
