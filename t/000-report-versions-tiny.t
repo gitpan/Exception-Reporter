@@ -56,6 +56,7 @@ eval { $v .= pmver('Email::MIME::ContentType','any version') };
 eval { $v .= pmver('Email::MIME::Creator','any version') };
 eval { $v .= pmver('Email::MessageID','any version') };
 eval { $v .= pmver('Email::Sender::Simple','any version') };
+eval { $v .= pmver('Encode','any version') };
 eval { $v .= pmver('Exception::Class','1.30') };
 eval { $v .= pmver('Exception::Class::Base','any version') };
 eval { $v .= pmver('ExtUtils::MakeMaker','6.30') };

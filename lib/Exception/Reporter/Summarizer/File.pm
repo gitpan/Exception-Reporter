@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter::Summarizer::File;
 {
-  $Exception::Reporter::Summarizer::File::VERSION = '0.004';
+  $Exception::Reporter::Summarizer::File::VERSION = '0.005';
 }
 use parent 'Exception::Reporter::Summarizer';
 
@@ -45,7 +45,7 @@ Exception::Reporter::Summarizer::File
 
 =head1 VERSION
 
-version 0.004
+version 0.005
 
 =head1 OVERVIEW
 

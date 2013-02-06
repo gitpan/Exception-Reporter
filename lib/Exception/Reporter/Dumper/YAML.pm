@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter::Dumper::YAML;
 {
-  $Exception::Reporter::Dumper::YAML::VERSION = '0.004';
+  $Exception::Reporter::Dumper::YAML::VERSION = '0.005';
 }
 use parent 'Exception::Reporter::Dumper';
 
@@ -21,10 +21,10 @@ sub dump {
 
   if (defined $dump) {
     my $ident = ref $value     ? (try { "$value" } catch { "<unknown>" })
-              : defined $value ? $value
+              : defined $value ? "$value" # quotes in case of glob, vstr, etc.
               :                  "(undef)";
 
-    ($ident) = split /\n/, $ident;
+    $ident =~ s/\A\n*([^\n]+)(?:\n|$).*/$1/;
     $ident = "<<unknown>>"
       unless defined $ident and length $ident and $ident =~ /\S/;
 
@@ -57,7 +57,7 @@ Exception::Reporter::Dumper::YAML
 
 =head1 VERSION
 
-version 0.004
+version 0.005
 
 =head1 AUTHOR
 

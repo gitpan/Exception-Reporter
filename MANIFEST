@@ -17,6 +17,7 @@ lib/Exception/Reporter/Summarizer/Email.pm
 lib/Exception/Reporter/Summarizer/ExceptionClass.pm
 lib/Exception/Reporter/Summarizer/Fallback.pm
 lib/Exception/Reporter/Summarizer/File.pm
+lib/Exception/Reporter/Summarizer/Text.pm
 misc/ls.long
 t/00-compile.t
 t/000-report-versions-tiny.t

@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter::Summarizer::Fallback;
 {
-  $Exception::Reporter::Summarizer::Fallback::VERSION = '0.004';
+  $Exception::Reporter::Summarizer::Fallback::VERSION = '0.005';
 }
 use parent 'Exception::Reporter::Summarizer';
 
@@ -38,17 +38,15 @@ Exception::Reporter::Summarizer::Fallback
 
 =head1 VERSION
 
-version 0.004
+version 0.005
 
 =head1 OVERVIEW
 
-This summarizer will accept any input and summarize it by dumping it to YAML.
+This summarizer will accept any input and summarize it by dumping it with the
+Exception::Reporter's dumper.
 
 I recommended that this summarizer is always in your list of summarizers,
 and always last.
-
-If a YAML dump can't be produced, the exception from YAML will be attached,
-along with the stringification of the dumpable value.
 
 =head1 AUTHOR
 

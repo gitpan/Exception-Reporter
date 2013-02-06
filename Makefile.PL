@@ -33,6 +33,7 @@ my %WriteMakefileArgs = (
     "Email::MIME::Creator" => 0,
     "Email::MessageID" => 0,
     "Email::Sender::Simple" => 0,
+    "Encode" => 0,
     "Exception::Class" => "1.30",
     "File::Basename" => 0,
     "Scalar::Util" => 0,
@@ -43,7 +44,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.004",
+  "VERSION" => "0.005",
   "test" => {
     "TESTS" => "t/*.t"
   }
