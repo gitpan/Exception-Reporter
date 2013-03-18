@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter::Summarizer::Text;
 {
-  $Exception::Reporter::Summarizer::Text::VERSION = '0.005';
+  $Exception::Reporter::Summarizer::Text::VERSION = '0.006';
 }
 use parent 'Exception::Reporter::Summarizer';
 
@@ -35,7 +35,8 @@ sub summarize {
   };
 
   my $ident = $value;
-  $ident =~ s/\A\n*([^\n]+)(?:\n|$).*/$1/;
+  $ident =~ s/\A\n+//;
+  ($ident) = split /\n/, $ident;
 
   return {
     filename => "$fn_base.txt",
@@ -58,7 +59,7 @@ Exception::Reporter::Summarizer::Text
 
 =head1 VERSION
 
-version 0.005
+version 0.006
 
 =head1 OVERVIEW
 

@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter::Summarizer::Fallback;
 {
-  $Exception::Reporter::Summarizer::Fallback::VERSION = '0.005';
+  $Exception::Reporter::Summarizer::Fallback::VERSION = '0.006';
 }
 use parent 'Exception::Reporter::Summarizer';
 
@@ -38,7 +38,7 @@ Exception::Reporter::Summarizer::Fallback
 
 =head1 VERSION
 
-version 0.005
+version 0.006
 
 =head1 OVERVIEW
 

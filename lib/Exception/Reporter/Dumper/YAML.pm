@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter::Dumper::YAML;
 {
-  $Exception::Reporter::Dumper::YAML::VERSION = '0.005';
+  $Exception::Reporter::Dumper::YAML::VERSION = '0.006';
 }
 use parent 'Exception::Reporter::Dumper';
 
@@ -57,7 +57,7 @@ Exception::Reporter::Dumper::YAML
 
 =head1 VERSION
 
-version 0.005
+version 0.006
 
 =head1 AUTHOR
 
