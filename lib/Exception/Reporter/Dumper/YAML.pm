@@ -2,9 +2,10 @@ use strict;
 use warnings;
 package Exception::Reporter::Dumper::YAML;
 {
-  $Exception::Reporter::Dumper::YAML::VERSION = '0.006';
+  $Exception::Reporter::Dumper::YAML::VERSION = '0.007';
 }
 use parent 'Exception::Reporter::Dumper';
+# ABSTRACT: a dumper to turn any scalar value into a plaintext YAML record
 
 use Try::Tiny;
 use YAML ();
@@ -53,11 +54,11 @@ __END__
 
 =head1 NAME
 
-Exception::Reporter::Dumper::YAML
+Exception::Reporter::Dumper::YAML - a dumper to turn any scalar value into a plaintext YAML record
 
 =head1 VERSION
 
-version 0.006
+version 0.007
 
 =head1 AUTHOR
 

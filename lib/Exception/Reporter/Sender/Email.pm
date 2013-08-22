@@ -2,10 +2,10 @@ use strict;
 use warnings;
 package Exception::Reporter::Sender::Email;
 {
-  $Exception::Reporter::Sender::Email::VERSION = '0.006';
+  $Exception::Reporter::Sender::Email::VERSION = '0.007';
 }
-# ABSTRACT: an report sender that sends detailed dumps via email
 use parent 'Exception::Reporter::Sender';
+# ABSTRACT: a report sender that sends detailed dumps via email
 
 
 use Digest::MD5 ();
@@ -198,11 +198,11 @@ __END__
 
 =head1 NAME
 
-Exception::Reporter::Sender::Email - an report sender that sends detailed dumps via email
+Exception::Reporter::Sender::Email - a report sender that sends detailed dumps via email
 
 =head1 VERSION
 
-version 0.006
+version 0.007
 
 =head1 SYNOPSIS
 

@@ -2,9 +2,10 @@ use strict;
 use warnings;
 package Exception::Reporter::Summarizer::Fallback;
 {
-  $Exception::Reporter::Summarizer::Fallback::VERSION = '0.006';
+  $Exception::Reporter::Summarizer::Fallback::VERSION = '0.007';
 }
 use parent 'Exception::Reporter::Summarizer';
+# ABSTRACT: a summarizer for stuff you couldn't deal with otherwise
 
 
 use Try::Tiny;
@@ -34,11 +35,11 @@ __END__
 
 =head1 NAME
 
-Exception::Reporter::Summarizer::Fallback
+Exception::Reporter::Summarizer::Fallback - a summarizer for stuff you couldn't deal with otherwise
 
 =head1 VERSION
 
-version 0.006
+version 0.007
 
 =head1 OVERVIEW
 

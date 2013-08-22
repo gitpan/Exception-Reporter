@@ -2,9 +2,10 @@ use strict;
 use warnings;
 package Exception::Reporter::Summarizer::Text;
 {
-  $Exception::Reporter::Summarizer::Text::VERSION = '0.006';
+  $Exception::Reporter::Summarizer::Text::VERSION = '0.007';
 }
 use parent 'Exception::Reporter::Summarizer';
+# ABSTRACT: a summarizer for plain text strings
 
 
 # Maybe in the future we can have options to allow empty strings. -- rjbs,
@@ -55,11 +56,11 @@ __END__
 
 =head1 NAME
 
-Exception::Reporter::Summarizer::Text
+Exception::Reporter::Summarizer::Text - a summarizer for plain text strings
 
 =head1 VERSION
 
-version 0.006
+version 0.007
 
 =head1 OVERVIEW
 

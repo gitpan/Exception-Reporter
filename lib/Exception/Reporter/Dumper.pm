@@ -2,8 +2,9 @@ use strict;
 use warnings;
 package Exception::Reporter::Dumper;
 {
-  $Exception::Reporter::Dumper::VERSION = '0.006';
+  $Exception::Reporter::Dumper::VERSION = '0.007';
 }
+# ABSTRACT: something that dumps values into records
 
 sub new {
   my $class = shift;
@@ -26,11 +27,11 @@ __END__
 
 =head1 NAME
 
-Exception::Reporter::Dumper
+Exception::Reporter::Dumper - something that dumps values into records
 
 =head1 VERSION
 
-version 0.006
+version 0.007
 
 =head1 AUTHOR
 

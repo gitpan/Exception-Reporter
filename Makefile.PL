@@ -11,13 +11,7 @@ use ExtUtils::MakeMaker 6.30;
 my %WriteMakefileArgs = (
   "ABSTRACT" => "a generic exception-reporting object",
   "AUTHOR" => "Ricardo Signes <rjbs\@cpan.org>",
-  "BUILD_REQUIRES" => {
-    "Email::MIME::ContentType" => 0,
-    "Exception::Class::Base" => 0,
-    "File::Find" => 0,
-    "File::Temp" => 0,
-    "Test::More" => "0.96"
-  },
+  "BUILD_REQUIRES" => {},
   "CONFIGURE_REQUIRES" => {
     "ExtUtils::MakeMaker" => "6.30"
   },
@@ -26,30 +20,51 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "NAME" => "Exception::Reporter",
   "PREREQ_PM" => {
-    "Carp" => 0,
-    "Data::GUID" => 0,
-    "Digest::MD5" => 0,
-    "Email::Address" => 0,
-    "Email::MIME::Creator" => 0,
-    "Email::MessageID" => 0,
-    "Email::Sender::Simple" => 0,
-    "Encode" => 0,
+    "Carp" => "0",
+    "Data::GUID" => "0",
+    "Digest::MD5" => "0",
+    "Email::Address" => "0",
+    "Email::MIME::Creator" => "0",
+    "Email::MessageID" => "0",
+    "Email::Sender::Simple" => "0",
+    "Encode" => "0",
     "Exception::Class" => "1.30",
-    "File::Basename" => 0,
-    "Scalar::Util" => 0,
-    "String::Truncate" => 0,
-    "Try::Tiny" => 0,
-    "YAML" => 0,
-    "parent" => 0,
-    "strict" => 0,
-    "warnings" => 0
+    "File::Basename" => "0",
+    "Scalar::Util" => "0",
+    "String::Truncate" => "0",
+    "Try::Tiny" => "0",
+    "YAML" => "0",
+    "parent" => "0",
+    "strict" => "0",
+    "warnings" => "0"
   },
-  "VERSION" => "0.006",
+  "TEST_REQUIRES" => {
+    "Capture::Tiny" => "0",
+    "Email::MIME::ContentType" => "0",
+    "Exception::Class::Base" => "0",
+    "Test::More" => "0.96",
+    "blib" => "0",
+    "lib" => "0"
+  },
+  "VERSION" => "0.007",
   "test" => {
     "TESTS" => "t/*.t"
   }
 );
 
+
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
+  my $tr = delete $WriteMakefileArgs{TEST_REQUIRES};
+  my $br = $WriteMakefileArgs{BUILD_REQUIRES};
+  for my $mod ( keys %$tr ) {
+    if ( exists $br->{$mod} ) {
+      $br->{$mod} = $tr->{$mod} if $tr->{$mod} > $br->{$mod};
+    }
+    else {
+      $br->{$mod} = $tr->{$mod};
+    }
+  }
+}
 
 unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
   my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
