@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter::Sender::Email;
 {
-  $Exception::Reporter::Sender::Email::VERSION = '0.007';
+  $Exception::Reporter::Sender::Email::VERSION = '0.008';
 }
 use parent 'Exception::Reporter::Sender';
 # ABSTRACT: a report sender that sends detailed dumps via email
@@ -202,7 +202,7 @@ Exception::Reporter::Sender::Email - a report sender that sends detailed dumps v
 
 =head1 VERSION
 
-version 0.007
+version 0.008
 
 =head1 SYNOPSIS
 

@@ -1,5 +1,9 @@
 Revision history for Exception-Reporter
 
+0.008     2013-08-22 20:14:46 America/New_York
+          fix tiny but quite significant documentation error (thanks, Tomohiro
+          Hosaka!)
+
 0.007     2013-08-22 17:35:07 America/New_York
           update bugtracker and repository
 

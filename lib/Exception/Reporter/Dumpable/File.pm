@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter::Dumpable::File;
 {
-  $Exception::Reporter::Dumpable::File::VERSION = '0.007';
+  $Exception::Reporter::Dumpable::File::VERSION = '0.008';
 }
 # ABSTRACT: a dumpable object for a file on disk
 
@@ -86,7 +86,7 @@ Exception::Reporter::Dumpable::File - a dumpable object for a file on disk
 
 =head1 VERSION
 
-version 0.007
+version 0.008
 
 =head1 SYNOPSIS
 

@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter;
 {
-  $Exception::Reporter::VERSION = '0.007';
+  $Exception::Reporter::VERSION = '0.008';
 }
 # ABSTRACT: a generic exception-reporting object
 
@@ -120,7 +120,7 @@ Exception::Reporter - a generic exception-reporting object
 
 =head1 VERSION
 
-version 0.007
+version 0.008
 
 =head1 SYNOPSIS
 
@@ -133,7 +133,7 @@ accessible, like MyApp->reporter.
 
   my $reporter = Exception::Reporter->new({
     always_dump => { env => sub { \%ENV } },
-    sender      => [
+    senders     => [
       Exception::Reporter::Sender::Email->new({
         from => 'root',
         to   => 'SysAdmins <sysadmins@example.com>',
