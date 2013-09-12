@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter;
 {
-  $Exception::Reporter::VERSION = '0.008';
+  $Exception::Reporter::VERSION = '0.010';
 }
 # ABSTRACT: a generic exception-reporting object
 
@@ -120,7 +120,7 @@ Exception::Reporter - a generic exception-reporting object
 
 =head1 VERSION
 
-version 0.008
+version 0.010
 
 =head1 SYNOPSIS
 

@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter::Sender::Email;
 {
-  $Exception::Reporter::Sender::Email::VERSION = '0.008';
+  $Exception::Reporter::Sender::Email::VERSION = '0.010';
 }
 use parent 'Exception::Reporter::Sender';
 # ABSTRACT: a report sender that sends detailed dumps via email
@@ -161,6 +161,7 @@ sub _build_email {
   my $digest_ident = $ident;
   $ident =~ s/\s+(?:at .+?)? ?line\s\d+\.?$//;
   $ident =~ s/\(.+//g;
+  ($ident) = split /\n/, $ident;
 
   my ($package, $filename, $line) = @{ $internal_arg->{caller} };
 
@@ -202,7 +203,7 @@ Exception::Reporter::Sender::Email - a report sender that sends detailed dumps v
 
 =head1 VERSION
 
-version 0.008
+version 0.010
 
 =head1 SYNOPSIS
 

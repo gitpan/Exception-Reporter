@@ -2,13 +2,26 @@ use strict;
 use warnings;
 package Exception::Reporter::Dumper::YAML;
 {
-  $Exception::Reporter::Dumper::YAML::VERSION = '0.008';
+  $Exception::Reporter::Dumper::YAML::VERSION = '0.010';
 }
 use parent 'Exception::Reporter::Dumper';
 # ABSTRACT: a dumper to turn any scalar value into a plaintext YAML record
 
 use Try::Tiny;
 use YAML ();
+
+sub _ident_from {
+  my ($self, $str, $x) = @_;
+
+  $str =~ s/\A\n+//;
+  ($str) = split /\n/, $str;
+
+  unless (defined $str and length $str and $str =~ /\S/) {
+    $str = sprintf "<<unknown%s>>", $x ? ' ($x)' : '';
+  }
+
+  return $str;
+}
 
 sub dump {
   my ($self, $value, $arg) = @_;
@@ -25,9 +38,7 @@ sub dump {
               : defined $value ? "$value" # quotes in case of glob, vstr, etc.
               :                  "(undef)";
 
-    $ident =~ s/\A\n*([^\n]+)(?:\n|$).*/$1/;
-    $ident = "<<unknown>>"
-      unless defined $ident and length $ident and $ident =~ /\S/;
+    $ident = $self->_ident_from($ident);
 
     return {
       filename => "$basename.yaml",
@@ -37,11 +48,18 @@ sub dump {
     };
   } else {
     my $string = try { "$value" } catch { "value could not stringify: $_" };
+    my $ident  = $self->_ident_from($string);
+
     return {
       filename => "$basename.txt",
       mimetype => 'text/plain',
-      body     => $string,
-      ident    => "<error>",
+      body     => <<EOB,
+__DATA__
+$string
+__YAML_ERROR__
+$error
+EOB
+      ident    => $ident,
     };
   }
 }
@@ -58,7 +76,7 @@ Exception::Reporter::Dumper::YAML - a dumper to turn any scalar value into a pla
 
 =head1 VERSION
 
-version 0.008
+version 0.010
 
 =head1 AUTHOR
 
