@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter::Sender;
 {
-  $Exception::Reporter::Sender::VERSION = '0.010';
+  $Exception::Reporter::Sender::VERSION = '0.011';
 }
 # ABSTRACT: a thing that sends exception reports
 
@@ -21,13 +21,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Exception::Reporter::Sender - a thing that sends exception reports
 
 =head1 VERSION
 
-version 0.010
+version 0.011
 
 =head1 OVERVIEW
 

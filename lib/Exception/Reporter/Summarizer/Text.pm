@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter::Summarizer::Text;
 {
-  $Exception::Reporter::Summarizer::Text::VERSION = '0.010';
+  $Exception::Reporter::Summarizer::Text::VERSION = '0.011';
 }
 use parent 'Exception::Reporter::Summarizer';
 # ABSTRACT: a summarizer for plain text strings
@@ -54,13 +54,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Exception::Reporter::Summarizer::Text - a summarizer for plain text strings
 
 =head1 VERSION
 
-version 0.010
+version 0.011
 
 =head1 OVERVIEW
 

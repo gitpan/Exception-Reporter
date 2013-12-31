@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter::Sender::Email;
 {
-  $Exception::Reporter::Sender::Email::VERSION = '0.010';
+  $Exception::Reporter::Sender::Email::VERSION = '0.011';
 }
 use parent 'Exception::Reporter::Sender';
 # ABSTRACT: a report sender that sends detailed dumps via email
@@ -158,10 +158,11 @@ sub _build_email {
   my $ident = $summaries->[0][1][0]{ident} && $summaries->[0][1][0]{ident}
            || "(unknown exception)";;
 
-  my $digest_ident = $ident;
-  $ident =~ s/\s+(?:at .+?)? ?line\s\d+\.?$//;
-  $ident =~ s/\(.+//g;
   ($ident) = split /\n/, $ident;
+  $ident =~ s/\s+(?:at .+?)? ?line\s\d+\.?$//;
+
+  my $digest_ident = $ident;
+  $digest_ident =~ s/\(.+//g;
 
   my ($package, $filename, $line) = @{ $internal_arg->{caller} };
 
@@ -197,13 +198,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Exception::Reporter::Sender::Email - a report sender that sends detailed dumps via email
 
 =head1 VERSION
 
-version 0.010
+version 0.011
 
 =head1 SYNOPSIS
 

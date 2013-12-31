@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter::Summarizer::Fallback;
 {
-  $Exception::Reporter::Summarizer::Fallback::VERSION = '0.010';
+  $Exception::Reporter::Summarizer::Fallback::VERSION = '0.011';
 }
 use parent 'Exception::Reporter::Summarizer';
 # ABSTRACT: a summarizer for stuff you couldn't deal with otherwise
@@ -33,13 +33,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Exception::Reporter::Summarizer::Fallback - a summarizer for stuff you couldn't deal with otherwise
 
 =head1 VERSION
 
-version 0.010
+version 0.011
 
 =head1 OVERVIEW
 
