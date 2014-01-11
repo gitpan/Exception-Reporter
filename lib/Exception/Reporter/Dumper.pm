@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Exception::Reporter::Dumper;
 {
-  $Exception::Reporter::Dumper::VERSION = '0.011';
+  $Exception::Reporter::Dumper::VERSION = '0.012';
 }
 # ABSTRACT: something that dumps values into records
 
@@ -33,7 +33,7 @@ Exception::Reporter::Dumper - something that dumps values into records
 
 =head1 VERSION
 
-version 0.011
+version 0.012
 
 =head1 AUTHOR
 

@@ -2,10 +2,21 @@ use strict;
 use warnings;
 package Exception::Reporter::Summarizer::ExceptionClass;
 {
-  $Exception::Reporter::Summarizer::ExceptionClass::VERSION = '0.011';
+  $Exception::Reporter::Summarizer::ExceptionClass::VERSION = '0.012';
 }
 use parent 'Exception::Reporter::Summarizer';
 # ABSTRACT: a summarizer for Exception::Class exceptions
+
+
+
+
+
+
+
+
+
+
+
 
 
 use Exception::Class 1.30; # NoContextInfo
@@ -96,7 +107,7 @@ Exception::Reporter::Summarizer::ExceptionClass - a summarizer for Exception::Cl
 
 =head1 VERSION
 
-version 0.011
+version 0.012
 
 =head1 OVERVIEW
 

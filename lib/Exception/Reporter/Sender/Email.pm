@@ -2,10 +2,40 @@ use strict;
 use warnings;
 package Exception::Reporter::Sender::Email;
 {
-  $Exception::Reporter::Sender::Email::VERSION = '0.011';
+  $Exception::Reporter::Sender::Email::VERSION = '0.012';
 }
 use parent 'Exception::Reporter::Sender';
 # ABSTRACT: a report sender that sends detailed dumps via email
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 use Digest::MD5 ();
@@ -66,6 +96,33 @@ sub env_to {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 sub send_report {
   my ($self, $summaries, $arg, $internal_arg) = @_;
 
@@ -87,6 +144,21 @@ sub send_report {
 
   return;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 sub send_email {
@@ -206,7 +278,7 @@ Exception::Reporter::Sender::Email - a report sender that sends detailed dumps v
 
 =head1 VERSION
 
-version 0.011
+version 0.012
 
 =head1 SYNOPSIS
 

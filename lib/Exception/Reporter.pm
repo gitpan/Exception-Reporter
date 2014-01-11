@@ -2,12 +2,98 @@ use strict;
 use warnings;
 package Exception::Reporter;
 {
-  $Exception::Reporter::VERSION = '0.011';
+  $Exception::Reporter::VERSION = '0.012';
 }
 # ABSTRACT: a generic exception-reporting object
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 use Data::GUID guid_string => { -as => '_guid_string' };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 sub new {
@@ -56,6 +142,58 @@ sub _summarizers { return @{ $_[0]->{summarizers} }; }
 sub _senders     { return @{ $_[0]->{senders} }; }
 
 sub dumper { return $_[0]->{dumper} }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 sub report_exception {
@@ -122,7 +260,7 @@ Exception::Reporter - a generic exception-reporting object
 
 =head1 VERSION
 
-version 0.011
+version 0.012
 
 =head1 SYNOPSIS
 

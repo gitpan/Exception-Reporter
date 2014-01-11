@@ -2,15 +2,57 @@ use strict;
 use warnings;
 package Exception::Reporter::Dumpable::File;
 {
-  $Exception::Reporter::Dumpable::File::VERSION = '0.011';
+  $Exception::Reporter::Dumpable::File::VERSION = '0.012';
 }
 # ABSTRACT: a dumpable object for a file on disk
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 sub _err_msg {
   my ($class, $path, $msg) = @_;
   return "(file at <$path> was requested for dumping, but $msg)";
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 sub new {
@@ -88,7 +130,7 @@ Exception::Reporter::Dumpable::File - a dumpable object for a file on disk
 
 =head1 VERSION
 
-version 0.011
+version 0.012
 
 =head1 SYNOPSIS
 

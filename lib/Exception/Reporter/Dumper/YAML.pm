@@ -2,13 +2,13 @@ use strict;
 use warnings;
 package Exception::Reporter::Dumper::YAML;
 {
-  $Exception::Reporter::Dumper::YAML::VERSION = '0.011';
+  $Exception::Reporter::Dumper::YAML::VERSION = '0.012';
 }
 use parent 'Exception::Reporter::Dumper';
 # ABSTRACT: a dumper to turn any scalar value into a plaintext YAML record
 
 use Try::Tiny;
-use YAML ();
+use YAML::XS ();
 
 sub _ident_from {
   my ($self, $str, $x) = @_;
@@ -28,7 +28,7 @@ sub dump {
   my $basename = $arg->{basename} || 'dump';
 
   my ($dump, $error) = try {
-    (YAML::Dump($value), undef);
+    (YAML::XS::Dump($value), undef);
   } catch {
     (undef, $_);
   };
@@ -78,7 +78,7 @@ Exception::Reporter::Dumper::YAML - a dumper to turn any scalar value into a pla
 
 =head1 VERSION
 
-version 0.011
+version 0.012
 
 =head1 AUTHOR
 

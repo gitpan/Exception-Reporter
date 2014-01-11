@@ -2,12 +2,22 @@ use strict;
 use warnings;
 package Exception::Reporter::Summarizer;
 {
-  $Exception::Reporter::Summarizer::VERSION = '0.011';
+  $Exception::Reporter::Summarizer::VERSION = '0.012';
 }
 # ABSTRACT: a thing that summarizes dumpables for reporting
 
 use Carp ();
 use Scalar::Util ();
+
+
+
+
+
+
+
+
+
+
 
 
 sub new {
@@ -60,7 +70,7 @@ Exception::Reporter::Summarizer - a thing that summarizes dumpables for reportin
 
 =head1 VERSION
 
-version 0.011
+version 0.012
 
 =head1 OVERVIEW
 

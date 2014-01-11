@@ -2,10 +2,17 @@ use strict;
 use warnings;
 package Exception::Reporter::Summarizer::Email;
 {
-  $Exception::Reporter::Summarizer::Email::VERSION = '0.011';
+  $Exception::Reporter::Summarizer::Email::VERSION = '0.012';
 }
 use parent 'Exception::Reporter::Summarizer';
 # ABSTRACT: a summarizer for Email::Simple objects
+
+
+
+
+
+
+
 
 
 use Try::Tiny;
@@ -44,7 +51,7 @@ Exception::Reporter::Summarizer::Email - a summarizer for Email::Simple objects
 
 =head1 VERSION
 
-version 0.011
+version 0.012
 
 =head1 OVERVIEW
 
